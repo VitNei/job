@@ -20,5 +20,21 @@
     <string name="crime_report_no_suspect">there is no suspect.</string>
     <string name="crime_report_suspect">the suspect is %s.</string>
     <string name="crime_report_subject">CriminalIntent Crime Report</string>
-    <string name="send_report">Send crime report via</string>
+    <string name="send_report">Поделиться откровением</string>
+    <string name="finihs_job">Отправить задачу на вечный покой</string>
+
+    <string-array name="stringsPrioritet">
+        <item>Необязательно</item>
+        <item>Может подождать</item>
+        <item>Норм так</item>
+        <item>Срочно</item>
+        <item>АААААААААА</item>
+    </string-array>
+
+    <string-array name="stringsProgress">
+        <item>Получен</item>
+        <item>Обработан</item>
+        <item>В ожидании</item>
+        <item>Выполнен</item>
+    </string-array>
 </resources>

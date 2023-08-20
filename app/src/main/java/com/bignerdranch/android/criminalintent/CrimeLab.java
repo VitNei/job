@@ -34,12 +34,28 @@ public class CrimeLab {
     public void addCrime(Crime c){
         ContentValues values = getContentValues(c);
 
-        mDatabase.insert(CrimeTable.NAME, null, values);
+        mDatabase.insert(CrimeTable.NAME_JOB, null, values);
     }
 
     public void deleteCrime(Crime crime){
-        mDatabase.delete(CrimeTable.NAME, CrimeTable.Cols.UUID + "=" + crime.getId(), null);
+        mDatabase.delete(CrimeTable.NAME_JOB, CrimeTable.Cols.UUID + "=" + crime.getId(), null);
     }
+
+    //нужны методы addCrime deleteCrime updateCrime CrimeCursorWrapper
+    //нужны методы addCrime deleteCrime updateCrime CrimeCursorWrapper
+    //нужны методы addCrime deleteCrime updateCrime CrimeCursorWrapper
+    //нужны методы addCrime deleteCrime updateCrime CrimeCursorWrapper
+    //нужны методы addCrime deleteCrime updateCrime CrimeCursorWrapper
+    //нужны методы addCrime deleteCrime updateCrime CrimeCursorWrapper
+    //нужны методы addCrime deleteCrime updateCrime CrimeCursorWrapper
+    //нужны методы addCrime deleteCrime updateCrime CrimeCursorWrapper
+    //нужны методы addCrime deleteCrime updateCrime CrimeCursorWrapper
+    //нужны методы addCrime deleteCrime updateCrime CrimeCursorWrapper
+    //нужны методы addCrime deleteCrime updateCrime CrimeCursorWrapper
+    //нужны методы addCrime deleteCrime updateCrime CrimeCursorWrapper
+    //нужны методы addCrime deleteCrime updateCrime CrimeCursorWrapper
+    //нужны методы addCrime deleteCrime updateCrime CrimeCursorWrapper
+    //для таблицы завершённых дел
 
     public List<Crime> getCrimes(){
         //return mCrimes;
@@ -94,12 +110,12 @@ public class CrimeLab {
         String uuidString = crime.getId().toString();
         ContentValues values = getContentValues(crime);
 
-        mDatabase.update(CrimeTable.NAME, values, CrimeTable.Cols.UUID + " = ?", new String[]{uuidString});
+        mDatabase.update(CrimeTable.NAME_JOB, values, CrimeTable.Cols.UUID + " = ?", new String[]{uuidString});
     }
 
     private CrimeCursorWrapper queryCrimes(String whereClase, String[] whereArgs){
         Cursor cursor = mDatabase.query(
-                CrimeTable.NAME,
+                CrimeTable.NAME_JOB,
                 null,
                 whereClase,
                 whereArgs,
@@ -114,9 +130,24 @@ public class CrimeLab {
         ContentValues values = new ContentValues();
         values.put(CrimeTable.Cols.UUID, crime.getId().toString());
         values.put(CrimeTable.Cols.TITLE, crime.getTitle());
+        values.put(CrimeTable.Cols.NOTE, crime.getNote());
         values.put(CrimeTable.Cols.DATE, crime.getDate().getTime());
+        values.put(CrimeTable.Cols.DATE_CHANGE, crime.getDateChange().getTime());
         values.put(CrimeTable.Cols.SOLVED, crime.isSolved() ? 1 : 0);
         values.put(CrimeTable.Cols.SUSPECT, crime.getSuspect());
+        values.put(CrimeTable.Cols.PRIORITET, crime.getPrioritet());
+        values.put(CrimeTable.Cols.PROGRESS, crime.getProgress());
+
+        return values;
+    }
+
+    private static ContentValues getContentValuesForCompletedTable(Crime crime){
+        ContentValues values = new ContentValues();
+        values.put(TableCompleted.Cols.UUID_TABLE_COMPLETED, crime.getId().toString());
+        values.put(TableCompleted.Cols.TITLE_TABLE_COMPLETED, crime.getTitle());
+        values.put(TableCompleted.Cols.NOTE_TABLE_COMPLETED, crime.getNote());
+        values.put(TableCompleted.Cols.DATE_CREATE_TABLE_COMPLETED, crime.getDate().getTime());
+        values.put(TableCompleted.Cols.DATE_FINISH_TABLE_COMPLETED, crime.getDateChange().getTime());
 
         return values;
     }

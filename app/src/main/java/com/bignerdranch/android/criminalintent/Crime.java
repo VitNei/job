@@ -6,9 +6,14 @@ import java.util.UUID;
 public class Crime {
     private UUID mId;
     private String mTitle;
+    private String mNote;
     private Date mDate;
+    private Date mDateChange;
     private boolean mSolved;
     private String mSuspect;
+    private int mPrioritet;
+    private int mProgress;
+
 
     public Crime() {
         this(UUID.randomUUID());
@@ -31,6 +36,15 @@ public class Crime {
         this.mTitle = mTitle;
     }
 
+	public String getNote()
+	{
+		return mNote;
+	}
+
+	public void setNote(String note) {
+		this.mNote = note;
+	}
+
     public Date getDate() {
         return mDate;
     }
@@ -38,6 +52,15 @@ public class Crime {
     public void setDate(Date mDate) {
         this.mDate = mDate;
     }
+
+	public Date getDateChange()
+	{
+		return mDateChange;
+	}
+
+	public void setDateChange(Date dateChange) {
+		this.mDateChange = dateChange;
+	}
 
     public boolean isSolved() {
         return mSolved;
@@ -58,4 +81,22 @@ public class Crime {
     public String getPhotoFilename(){
         return "IMG_" + getId().toString() + ".jpg";
     }
+
+	public int getPrioritet()
+	{
+		return mPrioritet;
+	}
+
+	public void setPrioritet(int prioritet) {
+		this.mPrioritet = prioritet;
+	}
+
+	public int getProgress()
+	{
+		return mProgress;
+	}
+
+	public void setProgress(int progress) {
+		this.mProgress = progress;
+	}
 }
