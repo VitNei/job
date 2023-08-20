@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Point;
 
 public class PictureUtils {
+    //пока не используется. Не стал удалять, чтобы если понадобится можно было понять как оно работает
     public static Bitmap getScaledBitmap(String path, int destWidth, int
             destHeight) {
         // Чтение размеров изображения на диске
