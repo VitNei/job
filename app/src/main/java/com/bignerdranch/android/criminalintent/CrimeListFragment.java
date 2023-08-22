@@ -12,10 +12,8 @@ import android.view.*;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
-import java.util.UUID;
 
 public class CrimeListFragment extends Fragment {
     private static final String SAVED_SUBTITLE_VISIBLE = "subtitle";
@@ -130,8 +128,8 @@ public class CrimeListFragment extends Fragment {
     private class CrimeHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private TextView mTitleTextView;
         private TextView mDateTextView;
-        private ImageView mSolvedImageView;
-        private ImageButton mDeleteButton;
+        //private TextView mPrioritetView;
+        //private TextView mProgressView;
 
         private Crime mCrime;
 
@@ -142,25 +140,21 @@ public class CrimeListFragment extends Fragment {
             super(inflater.inflate(R.layout.list_item_crime, parent, false));
             itemView.setOnClickListener(this);
 
-            mTitleTextView = (TextView) itemView.findViewById(R.id.crime_title);
+            mTitleTextView = (TextView) itemView.findViewById(R.id.note);
             mDateTextView = (TextView) itemView.findViewById(R.id.crime_date);
-            mSolvedImageView = (ImageView) itemView.findViewById(R.id.crime_solved);
-            mDeleteButton = (ImageButton) itemView.findViewById(R.id.delete_button);
+            //mPrioritetView = (TextView) itemView.findViewById(R.id.fragmentPrioritet);
+            //mProgressView = (TextView) itemView.findViewById(R.id.fragmentProgress);
             //Самоделки
-            mDeleteButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    CrimeLab.get(getActivity()).deleteCrime(mCrime);
 
-                }
-            });
+
         }
 
         public void bind(Crime crime){
             mCrime = crime;
             mTitleTextView.setText(mCrime.getTitle());
             mDateTextView.setText(mCrime.getDate().toString());
-            mSolvedImageView.setVisibility(crime.isSolved() ? View.VISIBLE : View.GONE);
+            //mPrioritetView.setText(mCrime.getPrioritet());
+            //mProgressView.setText(mCrime.getProgress());
         }
 
         @Override

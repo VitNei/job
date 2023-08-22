@@ -12,10 +12,10 @@
             android:text="@string/crime_title_label"
             android:id="@+id/title"/>
     <EditText
-            android:id="@+id/crime_title"
+            android:id="@+id/note"
             android:layout_width="match_parent"
             android:layout_height="245dp"
-            android:hint="@string/crime_title_hint" android:text="Писать сюда"/>
+            android:hint="Писать сюда"/>
 
     <TextView
             style="?android:listSeparatorTextViewStyle"
@@ -37,7 +37,7 @@
         <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/pioritet"
+                android:id="@+id/prioritet"
                 android:layout_weight="1"
                 android:entries="@array/stringsPrioritet"
         />

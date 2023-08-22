@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent">
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <Button
+                android:text="Задачи"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/tasksList"/>
+        <Button
+                android:text="Склад инструмента"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/tools"/>
+        <Button
+                android:text="Склад пластин"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/plastin"/>
+        <Button
+                android:text="Завершённые задачи"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/completeTasks"/>
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

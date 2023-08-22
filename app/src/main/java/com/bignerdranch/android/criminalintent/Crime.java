@@ -22,6 +22,9 @@ public class Crime {
     public Crime(UUID id){
         mId = id;
         mDate = new Date();
+        mDateChange = new Date();
+        //mPrioritet = 0;
+        //mProgress = 0;
     }
 
     public UUID getId() {
@@ -87,16 +90,16 @@ public class Crime {
 		return mPrioritet;
 	}
 
-	public void setPrioritet(int prioritet) {
-		this.mPrioritet = prioritet;
-	}
+    public void setPrioritet(int prioritet) {
+        this.mPrioritet = prioritet;
+    }
 
 	public int getProgress()
 	{
 		return mProgress;
 	}
 
-	public void setProgress(int progress) {
-		this.mProgress = progress;
-	}
+    public void setProgress(int progress) {
+        this.mProgress = progress;
+    }
 }

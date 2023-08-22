@@ -38,7 +38,7 @@ public class CrimeBaseHelper extends SQLiteOpenHelper {
                 TableCompleted.Cols.UUID_TABLE_COMPLETED + ", " +
                 TableCompleted.Cols.TITLE_TABLE_COMPLETED + ", " +
                 TableCompleted.Cols.NOTE_TABLE_COMPLETED + ", " +
-                TableCompleted.Cols.DATE_TABLE_COMPLETED + ", " +
+                TableCompleted.Cols.DATE_CREATE_TABLE_COMPLETED + ", " +
                 TableCompleted.Cols.DATE_FINISH_TABLE_COMPLETED +
                 ")"
         );
