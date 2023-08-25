@@ -1,7 +1,9 @@
 package com.bignerdranch.android.criminalintent;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import com.bignerdranch.android.criminalintent.completeTask.OldTaskLab;
 
 import java.util.Date;
 import java.util.UUID;
@@ -36,6 +39,8 @@ public class CrimeFragment extends Fragment {
     private Spinner mProgress;
     private Button mReportButton;
     private Button mCompletedButton;
+
+    private SQLiteDatabase mDatabase;
 
     /*
     private Button mDateButton;
@@ -139,7 +144,8 @@ public class CrimeFragment extends Fragment {
         mCompletedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                /*addCompleteTask(mCrime);
+                setResullt();*/
             }
         });
 
@@ -299,4 +305,21 @@ public class CrimeFragment extends Fragment {
             mPhotoView.setImageBitmap(bitmap);
         }
     }*/
+
+    public void addCompleteTask(Crime c){
+        ContentValues values = getContentValuesForCompletedTable(c);
+
+        mDatabase.insert(CrimeDbSchema.TableCompleted.NAME_TABLE_COMPLETED, null, values);
+    }
+
+    public static ContentValues getContentValuesForCompletedTable(Crime crime){
+        ContentValues values = new ContentValues();
+        values.put(CrimeDbSchema.TableCompleted.Cols.UUID_TABLE_COMPLETED, crime.getId().toString());
+        values.put(CrimeDbSchema.TableCompleted.Cols.TITLE_TABLE_COMPLETED, crime.getTitle());
+        values.put(CrimeDbSchema.TableCompleted.Cols.NOTE_TABLE_COMPLETED, crime.getNote());
+        values.put(CrimeDbSchema.TableCompleted.Cols.DATE_CREATE_TABLE_COMPLETED, crime.getDate().getTime());
+        values.put(CrimeDbSchema.TableCompleted.Cols.DATE_FINISH_TABLE_COMPLETED, crime.getDateChange().getTime());
+
+        return values;
+    }
 }

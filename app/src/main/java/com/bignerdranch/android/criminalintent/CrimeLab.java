@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import com.bignerdranch.android.criminalintent.completeTask.OldTaskLab;
 import com.bignerdranch.android.criminalintent.database.CrimeBaseHelper;
 
 
@@ -35,6 +36,12 @@ public class CrimeLab {
         ContentValues values = getContentValues(c);
 
         mDatabase.insert(CrimeTable.NAME_JOB, null, values);
+    }
+
+    public void addCompleteTask(Crime c){
+        ContentValues values = OldTaskLab.getContentValuesForCompletedTable(c);
+
+        mDatabase.insert(CrimeDbSchema.TableCompleted.NAME_TABLE_COMPLETED, null, values);
     }
 
     public void deleteCrime(Crime crime){
@@ -141,14 +148,5 @@ public class CrimeLab {
         return values;
     }
 
-    private static ContentValues getContentValuesForCompletedTable(Crime crime){
-        ContentValues values = new ContentValues();
-        values.put(TableCompleted.Cols.UUID_TABLE_COMPLETED, crime.getId().toString());
-        values.put(TableCompleted.Cols.TITLE_TABLE_COMPLETED, crime.getTitle());
-        values.put(TableCompleted.Cols.NOTE_TABLE_COMPLETED, crime.getNote());
-        values.put(TableCompleted.Cols.DATE_CREATE_TABLE_COMPLETED, crime.getDate().getTime());
-        values.put(TableCompleted.Cols.DATE_FINISH_TABLE_COMPLETED, crime.getDateChange().getTime());
 
-        return values;
-    }
 }
