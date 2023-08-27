@@ -134,12 +134,12 @@ public class CompleteTaskListFragment  extends Fragment {
         public void bind(Task task){
             mTask = task;
             mTitleTextView.setText(mTask.getTitle());
-            mDateTextView.setText(mTask.getDate().toString());
+            mDateTextView.setText(mTask.getDateChange().toString());
         }
 
         @Override
         public void onClick(View v) {
-            Intent intent = CrimePagerActivity.newIntent(getActivity(), mTask.getId());//???
+            Intent intent = CompleteTaskPagerActivity.newIntent(getActivity(), mTask.getId());//???
             startActivity(intent);//+
         }
     }

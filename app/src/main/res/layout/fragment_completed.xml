@@ -8,22 +8,30 @@
 
     <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/edit_title"
-            android:hint="@string/crime_title_label"/>
+            android:layout_height="31dp"
+            android:id="@+id/f_title"
+            android:hint="@string/crime_title_label" android:textSize="18sp" android:textStyle="bold"/>
 
     <TextView
-            android:id="@+id/note"
+            android:id="@+id/f_note"
             android:layout_width="match_parent"
             android:layout_height="297dp"
-            android:hint="@string/crime_title_hint" android:textSize="18sp"/>
+            android:hint="@string/task_note_hint"
+            android:textSize="18sp"/>
 
     <TextView
             style="?android:listSeparatorTextViewStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/crime_details_label"
-            android:id="@+id/date_create"/>
+            android:id="@+id/f_date_create" android:textSize="18sp" android:textAllCaps="false"/>
+
+    <TextView
+            style="?android:listSeparatorTextViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/crime_details_label"
+            android:id="@+id/f_delete_date" android:textSize="18sp" android:textAllCaps="false"/>
 
 
 </LinearLayout>

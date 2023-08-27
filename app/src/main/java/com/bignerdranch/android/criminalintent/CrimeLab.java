@@ -45,28 +45,10 @@ public class CrimeLab {
     }
 
     public void deleteCrime(Crime crime){
-        mDatabase.delete(CrimeTable.NAME_JOB, CrimeTable.Cols.UUID + "=" + crime.getId(), null);
+        mDatabase.delete(CrimeTable.NAME_JOB, CrimeTable.Cols.DATE + "=" + crime.getDate().getTime(), null);
     }
 
-    //нужны методы addCrime deleteCrime updateCrime CrimeCursorWrapper
-    //нужны методы addCrime deleteCrime updateCrime CrimeCursorWrapper
-    //нужны методы addCrime deleteCrime updateCrime CrimeCursorWrapper
-    //нужны методы addCrime deleteCrime updateCrime CrimeCursorWrapper
-    //нужны методы addCrime deleteCrime updateCrime CrimeCursorWrapper
-    //нужны методы addCrime deleteCrime updateCrime CrimeCursorWrapper
-    //нужны методы addCrime deleteCrime updateCrime CrimeCursorWrapper
-    //нужны методы addCrime deleteCrime updateCrime CrimeCursorWrapper
-    //нужны методы addCrime deleteCrime updateCrime CrimeCursorWrapper
-    //нужны методы addCrime deleteCrime updateCrime CrimeCursorWrapper
-    //нужны методы addCrime deleteCrime updateCrime CrimeCursorWrapper
-    //нужны методы addCrime deleteCrime updateCrime CrimeCursorWrapper
-    //нужны методы addCrime deleteCrime updateCrime CrimeCursorWrapper
-    //нужны методы addCrime deleteCrime updateCrime CrimeCursorWrapper
-    //для таблицы завершённых дел
-
     public List<Crime> getCrimes(){
-        //return mCrimes;
-        //return new ArrayList<>();
         List<Crime> crimes = new ArrayList<>();
 
         CrimeCursorWrapper cursor = queryCrimes(null,null);
@@ -85,17 +67,7 @@ public class CrimeLab {
     }
 
     public Crime getCrime(UUID id){
-        /*for (Crime crime : mCrimes){
-            if (crime.getId().equals(id)){
-                return crime;
-            }
-        }*/
-        //return null;
-
-        CrimeCursorWrapper cursor = queryCrimes(
-                CrimeTable.Cols.UUID + " = ?",
-                new String[] { id.toString() }
-        );
+        CrimeCursorWrapper cursor = queryCrimes(CrimeTable.Cols.UUID + " = ?", new String[] {id.toString()} );
         try {
             if (cursor.getCount() == 0) {
                 return null;

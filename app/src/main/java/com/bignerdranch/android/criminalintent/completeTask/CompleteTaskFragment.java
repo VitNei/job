@@ -19,7 +19,7 @@ import java.util.UUID;
 
 public class CompleteTaskFragment extends Fragment {
 
-    private static final String ARG_CRIME_ID = "crime_id";
+    private static final String ARG_CRIME_ID = "task_id";
     private static final String DIALOG_DATE = "DialogDate";
     private static final int REQUEST_DATE = 0;
     private static final int REQUEST_CONTACT = 1;
@@ -29,8 +29,8 @@ public class CompleteTaskFragment extends Fragment {
 
     //private File mPhotoFile;
 
-    private EditText mTitleField;
-    private EditText mNoteField;
+    private TextView mTitleField;
+    private TextView mNoteField;
     private TextView mDateCreate;
     private TextView mDateChange;
 
@@ -53,66 +53,30 @@ public class CompleteTaskFragment extends Fragment {
         super.onCreate(savedInstanceState);
         UUID crimeId = (UUID) getArguments().getSerializable(ARG_CRIME_ID);
         mTask = OldTaskLab.get(getActivity()).getTask(crimeId);
-        //mPhotoFile = CrimeLab.get(getActivity()).getPhotoFile(mCrime);
     }
 
     @Override
     public void onPause(){
         super.onPause();
-
         //OldTaskLab.get(getActivity()).updateCrime(mTask);
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_crime, container, false);
+        View v = inflater.inflate(R.layout.fragment_completed, container, false);
 
-        mTitleField = (EditText) v.findViewById(R.id.title);
+        mTitleField = (TextView) v.findViewById(R.id.f_title);
         mTitleField.setText(mTask.getTitle());
-        mTitleField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mTask.setTitle(s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        mNoteField = (EditText) v.findViewById(R.id.note);
+        mNoteField = (TextView) v.findViewById(R.id.f_note);
         mNoteField.setText(mTask.getNote());
-        mNoteField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mTask.setNote(s.toString());
-                mTask.setDateChange(new Date());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-
-        mDateCreate = (TextView) v.findViewById(R.id.date_create);
+        mDateCreate = (TextView) v.findViewById(R.id.f_date_create);
         mDateCreate.setText("Создано: " + mTask.getDate().toString());
 
-        mDateChange = (TextView) v.findViewById(R.id.date_change);
-        mDateChange.setText("Изменено: " + mTask.getDateChange().toString());
+        mDateChange = (TextView) v.findViewById(R.id.f_delete_date);
+        mDateChange.setText("Удалено: " + mTask.getDateChange().toString());
 
         /*mReportButton = (Button) v.findViewById(R.id.crime_report);
         mReportButton.setOnClickListener(new View.OnClickListener() {
@@ -127,7 +91,6 @@ public class CompleteTaskFragment extends Fragment {
             }
         });*/
 
-
         return v;
     }
 
@@ -139,10 +102,4 @@ public class CompleteTaskFragment extends Fragment {
 
 
     }
-
-    private void updateChangeDate() {
-        mTask.setDate(new Date());
-    }
-
-
 }

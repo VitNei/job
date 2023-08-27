@@ -13,6 +13,9 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+
+        //main menu
+
         <activity android:name=".CrimeListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -20,6 +23,8 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        //"crime"
 
         <activity
                 android:name=".TaskActivity"
@@ -31,10 +36,19 @@
                 android:parentActivityName=".TaskActivity">
         </activity>
 
+        //"task"
+
         <activity
                 android:name=".completeTask.CompleteTaskListActivity"
                 android:parentActivityName=".CrimeListActivity">
         </activity>
+
+        <activity
+                android:name=".completeTask.CompleteTaskPagerActivity"
+                android:parentActivityName=".completeTask.CompleteTaskListActivity">
+        </activity>
+
+        //unknow
 
         <provider
                 android:name="android.support.v4.content.FileProvider"

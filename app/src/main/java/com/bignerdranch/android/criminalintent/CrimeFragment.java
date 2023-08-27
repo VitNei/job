@@ -144,8 +144,11 @@ public class CrimeFragment extends Fragment {
         mCompletedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*addCompleteTask(mCrime);
-                setResullt();*/
+                mCrime.setDateChange(new Date());
+                OldTaskLab.get(getActivity()).addCompleteTask(mCrime);
+
+                CrimeLab.get(getActivity()).deleteCrime(mCrime);
+                getActivity().finish();
             }
         });
 
