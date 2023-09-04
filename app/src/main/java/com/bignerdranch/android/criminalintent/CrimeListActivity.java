@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import com.bignerdranch.android.criminalintent.completeTask.CompleteTaskListActivity;
+import com.bignerdranch.android.criminalintent.tools.ToolListActivity;
 
 public class CrimeListActivity extends AppCompatActivity {
     private Button mButtonTasks;
@@ -42,7 +43,8 @@ public class CrimeListActivity extends AppCompatActivity {
         mButtonTools.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(CrimeListActivity.this, ToolListActivity.class);
+                startActivity(intent);
             }
         });
 

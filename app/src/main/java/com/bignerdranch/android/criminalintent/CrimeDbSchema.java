@@ -28,4 +28,16 @@ public class CrimeDbSchema {
             public static final String DATE_FINISH_TABLE_COMPLETED = "dateFinishTableCompleted";
         }
     }
+
+    public static final class ToolTable{
+        public static final String TOOL = "toolTable";
+
+        public static final class Cols{
+            public static final String UUID_TOOL = "uuidTool";
+            public static final String TOOL_NAME = "toolName";
+            public static final String TOOL_COUNT = "toolCount";
+            //public static final String DATE_CREATE_TABLE_COMPLETED = "dateCreateTableCompleted";
+            //public static final String DATE_FINISH_TABLE_COMPLETED = "dateFinishTableCompleted";
+        }
+    }
 }

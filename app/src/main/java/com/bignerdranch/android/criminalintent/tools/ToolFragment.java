@@ -1,9 +1,7 @@
-package com.bignerdranch.android.criminalintent;
+package com.bignerdranch.android.criminalintent.tools;
 
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,34 +11,28 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
-import com.bignerdranch.android.criminalintent.completeTask.OldTaskLab;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import com.bignerdranch.android.criminalintent.R;
 
-import java.util.Date;
 import java.util.UUID;
 
-public class CrimeFragment extends Fragment {
+public class ToolFragment extends Fragment {
 
-    private static final String ARG_CRIME_ID = "crime_id";
+    private static final String ARG_TOOL_ID = "tool_id";
     private static final String DIALOG_DATE = "DialogDate";
     private static final int REQUEST_DATE = 0;
     private static final int REQUEST_CONTACT = 1;
     private static final int REQUEST_PHOTO= 2;
 
-    private Crime mCrime;
+    private Tool mTool;
 
     //private File mPhotoFile;
 
-    private EditText mTitleField;
-    private EditText mNoteField;
-    private TextView mDateCreate;
-    private TextView mDateChange;
-    private Spinner mPrioritet;
-    private Spinner mProgress;
-    private Button mReportButton;
-    private Button mCompletedButton;
-
-    //private SQLiteDatabase mDatabase;
+    private EditText mToolName;
+    private TextView mCount;
+    private Button mSave;
 
     /*
     private Button mDateButton;
@@ -49,11 +41,11 @@ public class CrimeFragment extends Fragment {
     private ImageButton mPhotoButton;
     private ImageView mPhotoView;*/
 
-    public static CrimeFragment newInstance(UUID crimeId){
+    public static ToolFragment newInstance(UUID toolId){
         Bundle args = new Bundle();
-        args.putSerializable(ARG_CRIME_ID, crimeId);
+        args.putSerializable(ARG_TOOL_ID, toolId);
 
-        CrimeFragment fragment = new CrimeFragment();
+        ToolFragment fragment = new ToolFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -62,8 +54,8 @@ public class CrimeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UUID crimeId = (UUID) getArguments().getSerializable(ARG_CRIME_ID);
-        mCrime = CrimeLab.get(getActivity()).getCrime(crimeId);
+        UUID toolId = (UUID) getArguments().getSerializable(ARG_TOOL_ID);
+        mTool = ToolLab.get(getActivity()).getTool(toolId);
         //mPhotoFile = CrimeLab.get(getActivity()).getPhotoFile(mCrime);
     }
 
@@ -71,17 +63,17 @@ public class CrimeFragment extends Fragment {
     public void onPause(){
         super.onPause();
 
-        CrimeLab.get(getActivity()).updateCrime(mCrime);
+        ToolLab.get(getActivity()).updateTool(mTool);
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_crime, container, false);
+        View v = inflater.inflate(R.layout.fragment_tool, container, false);
 
-        mTitleField = (EditText) v.findViewById(R.id.title);
-        mTitleField.setText(mCrime.getTitle());
-        mTitleField.addTextChangedListener(new TextWatcher() {
+        mToolName = (EditText) v.findViewById(R.id.tool_title);
+        mToolName.setText(mTool.getToolName());
+        mToolName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -89,7 +81,7 @@ public class CrimeFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mCrime.setTitle(s.toString());
+                mTool.setToolName(s.toString());
             }
 
             @Override
@@ -98,82 +90,16 @@ public class CrimeFragment extends Fragment {
             }
         });
 
-        mNoteField = (EditText) v.findViewById(R.id.note);
-        mNoteField.setText(mCrime.getNote());
-        mNoteField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        mCount = (TextView) v.findViewById(R.id.tool_count);
+        //mCount.setText("Создано: " + mTool.getCount()); // выдаёт ошибку нуль вме
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mCrime.setNote(s.toString());
-                mCrime.setDateChange(new Date());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-
-        mDateCreate = (TextView) v.findViewById(R.id.date_create);
-        mDateCreate.setText("Создано: " + mCrime.getDate().toString());
-
-        mDateChange = (TextView) v.findViewById(R.id.date_change);
-        mDateChange.setText("Изменено: " + mCrime.getDateChange().toString());
-
-        mPrioritet = (Spinner) v.findViewById(R.id.prioritet);
-        mPrioritet.setSelection(mCrime.getPrioritet());
-        mPrioritet.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mCrime.setPrioritet(mPrioritet.getSelectedItemPosition());
-                mCrime.setDateChange(new Date());
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        mCompletedButton = (Button) v.findViewById(R.id.finsh_button);
-        mCompletedButton.setOnClickListener(new View.OnClickListener() {
+        mSave = (Button) v.findViewById(R.id.save_tool_button);
+        mSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCrime.setDateChange(new Date());
-                OldTaskLab.get(getActivity()).addCompleteTask(mCrime);
-
-                CrimeLab.get(getActivity()).deleteCrime(mCrime);
-                getActivity().finish();
-            }
-        });
-
-        mProgress = (Spinner) v.findViewById(R.id.progress);
-        mProgress.setSelection(mCrime.getProgress());
-        mProgress.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mCrime.setProgress(mProgress.getSelectedItemPosition());
-                mCrime.setDateChange(new Date());
-                if (position == getResources().getStringArray(R.array.stringsProgress).length - 1){
-                    mCompletedButton.setVisibility(View.VISIBLE);
-                } else {
-                    mCompletedButton.setVisibility(View.INVISIBLE);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
-
-
-
 
         /*mReportButton = (Button) v.findViewById(R.id.crime_report);
         mReportButton.setOnClickListener(new View.OnClickListener() {
@@ -274,9 +200,9 @@ public class CrimeFragment extends Fragment {
         }*/
     }
 
-    private void updateChangeDate() {
+    /*private void updateChangeDate() {
         mCrime.setDate(new Date());
-    }
+    }*/
 
     /*private String getCrimeReport() {
         String solvedString = null;
@@ -307,22 +233,5 @@ public class CrimeFragment extends Fragment {
                     mPhotoFile.getPath(), getActivity());
             mPhotoView.setImageBitmap(bitmap);
         }
-    }*/
-
-    /*public void addCompleteTask(Crime c){
-        ContentValues values = getContentValuesForCompletedTable(c);
-
-        mDatabase.insert(CrimeDbSchema.TableCompleted.NAME_TABLE_COMPLETED, null, values);
-    }
-
-    public static ContentValues getContentValuesForCompletedTable(Crime crime){
-        ContentValues values = new ContentValues();
-        values.put(CrimeDbSchema.TableCompleted.Cols.UUID_TABLE_COMPLETED, crime.getId().toString());
-        values.put(CrimeDbSchema.TableCompleted.Cols.TITLE_TABLE_COMPLETED, crime.getTitle());
-        values.put(CrimeDbSchema.TableCompleted.Cols.NOTE_TABLE_COMPLETED, crime.getNote());
-        values.put(CrimeDbSchema.TableCompleted.Cols.DATE_CREATE_TABLE_COMPLETED, crime.getDate().getTime());
-        values.put(CrimeDbSchema.TableCompleted.Cols.DATE_FINISH_TABLE_COMPLETED, crime.getDateChange().getTime());
-
-        return values;
     }*/
 }

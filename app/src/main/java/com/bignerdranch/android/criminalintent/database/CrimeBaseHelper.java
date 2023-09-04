@@ -3,6 +3,7 @@ package com.bignerdranch.android.criminalintent.database;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import com.bignerdranch.android.criminalintent.CrimeDbSchema;
 import com.bignerdranch.android.criminalintent.CrimeDbSchema.TableCompleted;
 import com.bignerdranch.android.criminalintent.CrimeDbSchema.CrimeTable;
 
@@ -40,6 +41,14 @@ public class CrimeBaseHelper extends SQLiteOpenHelper {
                 TableCompleted.Cols.NOTE_TABLE_COMPLETED + ", " +
                 TableCompleted.Cols.DATE_CREATE_TABLE_COMPLETED + ", " +
                 TableCompleted.Cols.DATE_FINISH_TABLE_COMPLETED +
+                ")"
+        );
+
+        db.execSQL("create table " + CrimeDbSchema.ToolTable.TOOL + "(" +
+                " _id integer primary key autoincrement, " +
+                CrimeDbSchema.ToolTable.Cols.UUID_TOOL + ", " +
+                CrimeDbSchema.ToolTable.Cols.TOOL_NAME + ", " +
+                CrimeDbSchema.ToolTable.Cols.TOOL_COUNT +
                 ")"
         );
     }

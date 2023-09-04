@@ -48,6 +48,28 @@
                 android:parentActivityName=".completeTask.CompleteTaskListActivity">
         </activity>
 
+        //tool
+
+        <activity
+                android:name=".tools.ToolListActivity"
+                android:parentActivityName=".CrimeListActivity">
+        </activity>
+
+        <activity
+                android:name=".tools.ToolPagerActivity"
+                android:parentActivityName=".tools.ToolListActivity">
+        </activity>
+
+        <activity
+                android:name=".tools.ToolActivity"
+                android:parentActivityName=".tools.ToolListActivity">
+        </activity>
+
+        <activity
+                android:name=".tools.AddToolActivity"
+                android:parentActivityName=".tools.ToolListActivity">
+        </activity>
+
         //unknow
 
         <provider
