@@ -29,8 +29,8 @@ public class ToolLab {
         mDatabase = new CrimeBaseHelper(mContext).getWritableDatabase();
     }
 
-    public void addTool(Tool c){
-        ContentValues values = getContentValues(c);
+    public void addTool(Tool t){
+        ContentValues values = getContentValues(t);
         mDatabase.insert(CrimeDbSchema.ToolTable.TOOL, null, values);
     }
 
@@ -57,7 +57,7 @@ public class ToolLab {
     }
 
     public Tool getTool(UUID id){
-        ToolCursorWrapper cursor = queryTools(CrimeDbSchema.ToolTable.Cols.UUID_TOOL + " = ?", new String[] {id.toString()} );
+        ToolCursorWrapper cursor = queryTools(CrimeDbSchema.ToolTable.Cols.UUID_TOOL + " = ?", new String[] {id.toString()} );//что то тут не так
         try {
             if (cursor.getCount() == 0) {
                 return null;

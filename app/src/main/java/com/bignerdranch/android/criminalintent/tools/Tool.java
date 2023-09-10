@@ -23,8 +23,8 @@ public class Tool {
 
     public Tool(UUID id){
         mId = id;
-        mToolName =  "";
-        mWhereUse = "";
+        mToolName = " ";
+        mWhereUse = " ";
         mCount = 0;
     }
 

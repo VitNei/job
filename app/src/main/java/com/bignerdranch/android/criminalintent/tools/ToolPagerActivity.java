@@ -22,9 +22,9 @@ public class ToolPagerActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private List<Tool> mTools;
 
-    public static Intent newIntent(Context packageContext, UUID crimeId){
+    public static Intent newIntent(Context packageContext, UUID toolId){
         Intent intent = new Intent(packageContext, ToolPagerActivity.class);
-        intent.putExtra(EXTRA_TOOL_ID, crimeId);
+        intent.putExtra(EXTRA_TOOL_ID, toolId);
         return intent;
     }
 

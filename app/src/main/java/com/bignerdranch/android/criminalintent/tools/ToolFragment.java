@@ -29,15 +29,16 @@ public class ToolFragment extends Fragment {
 
     //private File mPhotoFile;
 
-    private EditText mToolNameField;
+    private TextView mToolNameField;
     private TextView mToolCount;
+    private Button mAddButton;
+    private Button mGetButton;
+    private TextView mShortStoryText;
     private Button mReportButton;
 
     //private SQLiteDatabase mDatabase;
 
     /*
-    private Button mDateButton;
-    private CheckBox mSolvedCheckBox;
     private Button mSuspectButton;
     private ImageButton mPhotoButton;
     private ImageView mPhotoView;*/
@@ -70,28 +71,12 @@ public class ToolFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_tool, container, false);
+        View v = inflater.inflate(R.layout.tool_activity, container, false);
 
-        mToolNameField = (EditText) v.findViewById(R.id.tool_title);
+        mToolNameField = (TextView) v.findViewById(R.id.tool_title_f);
         mToolNameField.setText(mTool.getToolName());
-        mToolNameField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mTool.setToolName(s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        mToolCount = (TextView) v.findViewById(R.id.tool_count);
+        mToolCount = (TextView) v.findViewById(R.id.tool_count_f);
         //mToolCount.setText("0");
 
         /*mCompletedButton = (Button) v.findViewById(R.id.finsh_button);

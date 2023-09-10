@@ -87,8 +87,7 @@ public class ToolListFragment extends Fragment {
         switch (item.getItemId()){
             case R.id.new_crime:
                 Tool tool = new Tool();
-                ToolLab.get(getActivity()).addTool(tool);
-                Intent intent = ToolPagerActivity.newIntent(getActivity(), tool.getId());
+                Intent intent = AddToolActivity.newIntent(getActivity(), tool.getId());
                 startActivity(intent);
                 return true;
 
