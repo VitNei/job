@@ -66,7 +66,7 @@ public class ToolListFragment extends Fragment {
             mAdapter.notifyDataSetChanged();
         }
 
-        //updateSubtitle();
+        updateSubtitle();
     }
 
     @Override
@@ -92,15 +92,21 @@ public class ToolListFragment extends Fragment {
                 startActivity(intent);
                 return true;
 
+            case R.id.show_subtitle:
+                mSubtitleVisible = !mSubtitleVisible;
+                getActivity().invalidateOptionsMenu();
+                updateSubtitle();
+                return true;
+
             default:
                 return  super.onOptionsItemSelected(item);
         }
     }
 
-    /*private void updateSubtitle(){
-        ToolLab crimeLab = ToolLab.get(getActivity());
-        int crimeCount = crimeLab.getTools().size();
-        String subtitle = getString(R.string.subtitle_format, crimeCount);
+    private void updateSubtitle(){
+        ToolLab toolLab = ToolLab.get(getActivity());
+        int toolCount = toolLab.getTools().size();
+        String subtitle = getString(R.string.subtitle_format, toolCount);
 
         if (!mSubtitleVisible) {
             subtitle = null;
@@ -108,7 +114,7 @@ public class ToolListFragment extends Fragment {
 
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         activity.getSupportActionBar().setSubtitle(subtitle);
-    }*/
+    }
 
     //заполняет макет
     /*
@@ -119,8 +125,8 @@ public class ToolListFragment extends Fragment {
     вы можете взять ее из поля itemView класса ViewHolder.
      */
     private class ToolHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        private TextView mToolName;
-        private TextView mCount;
+        private TextView mNameTool;
+        private TextView mToolCount;
 
         private Tool mTool;
 
@@ -131,14 +137,14 @@ public class ToolListFragment extends Fragment {
             super(inflater.inflate(R.layout.list_item_tool, parent, false));
             itemView.setOnClickListener(this);
 
-            mToolName = (TextView) itemView.findViewById(R.id.tool_title);
-            mCount = (TextView) itemView.findViewById(R.id.tool_count);
+            mNameTool = (TextView) itemView.findViewById(R.id.tool_name);
+            mToolCount = (TextView) itemView.findViewById(R.id.tool_count);
         }
 
         public void bind(Tool tool){
             mTool = tool;
-            mToolName.setText(mTool.getToolName());
-            //mCount.setText(mTool.getCount());
+            mNameTool.setText(mTool.getToolName());
+            //mToolCount.setText(mTool.getCount());
         }
 
         @Override
@@ -190,145 +196,4 @@ public class ToolListFragment extends Fragment {
             mTools = tools;
         }
     }
-
-    /*private RecyclerView mToolRecyclerView;
-    private ToolAdapter mAdapter;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
-
-    //создают рецайкл вью, обнавляет его и возвращает вьюшку
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_tool_list, container, false);
-        mToolRecyclerView = (RecyclerView) view.findViewById(R.id.tool_recycler_view);
-        mToolRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        updateUI();
-        return view;
-    }
-
-    @Override
-    public void onResume(){
-        super.onResume();
-        updateUI();
-    }
-
-    //поворачивает на бок
-    /*@Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        //outState.putBoolean(SAVED_SUBTITLE_VISIBLE, mSubtitleVisible);//+
-    }
-
-    //заполняет вьюшу обьектами
-    private void updateUI(){
-        ToolLab toolLab = ToolLab.get(getActivity());
-        //создает список инструмента
-        List<Tool> tools = toolLab.getTools();
-
-        //создать адаптер если если его нет
-        //иначе
-        if(mAdapter == null){
-            mAdapter = new ToolAdapter(tools);
-            mToolRecyclerView.setAdapter(mAdapter);
-        } else {
-            mAdapter.setTools(tools);
-            mAdapter.notifyDataSetChanged();//????
-        }
-    }
-
-    @Override
-    //создаёт и описывается меню
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.fragment_crime_list, menu);
-    }
-
-    @Override
-    //как реагировать на нажатие кнопок меню
-    public boolean onOptionsItemSelected(MenuItem item){
-        switch (item.getItemId()){
-            //добавляет новую запись и открывает активность для ввода
-            case R.id.new_crime:
-                //создаёт новую запись
-                /*кусок ниже нужно перенести куда нибудь
-                Tool tool = new Tool();
-                Intent intent = new Intent(getActivity(), AddToolActivity.class);
-                intent.putExtra(Tool.class.getSimpleName(), tool);
-                startActivity(intent);
-                //ToolLab.get(getActivity()).addTool(tool);
-                return true;
-
-            default:
-                return  super.onOptionsItemSelected(item);
-        }
-    }
-
-    private class ToolHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        private TextView mToolNameView;
-        private TextView mCountView;
-
-        private Tool mTool;
-
-        private static final String ARG_TASK_ID = "task_id";//????
-
-        public ToolHolder(LayoutInflater inflater, ViewGroup parent){
-            super(inflater.inflate(R.layout.list_item_tool, parent, false));
-            itemView.setOnClickListener(this);
-
-            mToolNameView = (TextView) itemView.findViewById(R.id.tool_name);
-            //mWhereUseView = (TextView) itemView.findViewById(R.id.complete_task_date);
-            mCountView = (TextView) itemView.findViewById(R.id.tool_count);*/
-        /*}
-
-        public void bind(Tool tool){
-            mTool = tool;
-            mToolNameView.setText(mTool.getToolName());
-            //mWhereUseView.setText(mTool.getWhereUse());
-            //mCountView.setText(mTool.getCount());
-        }
-
-        @Override
-        public void onClick(View v) {
-            //Intent intent = AddToolActivity.newIntent(getActivity(), mTool);
-            Intent intent = AddToolActivity.newIntent(getActivity(), new Tool());//???
-            startActivity(intent);//+
-        }
-    }
-
-    private class ToolAdapter extends RecyclerView.Adapter<ToolHolder>{
-        private List<Tool> mTool;
-
-        public ToolAdapter(List<Tool> tools){
-            mTool = tools;
-        }
-
-
-        @NonNull
-        @Override
-        public ToolHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
-            return new ToolHolder(layoutInflater, parent);
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull ToolHolder holder, int position) {
-            Tool tool = mTool.get(position);
-            holder.bind(tool);
-        }
-
-        @Override
-        public int getItemCount() {
-            return mTool.size();
-        }
-
-        public void setTools(List<Tool> tools){
-            mTool = tools;
-        }
-    }*/
 }

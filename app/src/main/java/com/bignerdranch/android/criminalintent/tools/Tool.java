@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.UUID;
 
 
-public class Tool implements Serializable {
+public class Tool {
     private UUID mId;
     private String mToolName;
     private String mWhereUse;

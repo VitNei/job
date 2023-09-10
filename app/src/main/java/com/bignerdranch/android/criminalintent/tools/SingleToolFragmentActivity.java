@@ -7,9 +7,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import com.bignerdranch.android.criminalintent.R;
 
-public abstract class SingleToolsActivity extends AppCompatActivity {
+public abstract class SingleToolFragmentActivity extends AppCompatActivity {
 
-    protected abstract Fragment createTool();//+
+    protected abstract Fragment createTool();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

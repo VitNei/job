@@ -19,7 +19,6 @@ public class ToolCursorWrapper extends CursorWrapper {
 
 
         Tool tool = new Tool(UUID.fromString(uuidSring));
-        //Tool tool = new Tool(UUID.randomUUID());
         tool.setToolName(toolName);
         tool.setCount(toolCount);
 

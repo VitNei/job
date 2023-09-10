@@ -19,7 +19,6 @@ import com.bignerdranch.android.criminalintent.R;
 import java.util.UUID;
 
 public class ToolFragment extends Fragment {
-
     private static final String ARG_TOOL_ID = "tool_id";
     private static final String DIALOG_DATE = "DialogDate";
     private static final int REQUEST_DATE = 0;
@@ -30,9 +29,11 @@ public class ToolFragment extends Fragment {
 
     //private File mPhotoFile;
 
-    private EditText mToolName;
-    private TextView mCount;
-    private Button mSave;
+    private EditText mToolNameField;
+    private TextView mToolCount;
+    private Button mReportButton;
+
+    //private SQLiteDatabase mDatabase;
 
     /*
     private Button mDateButton;
@@ -71,9 +72,9 @@ public class ToolFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_tool, container, false);
 
-        mToolName = (EditText) v.findViewById(R.id.tool_title);
-        mToolName.setText(mTool.getToolName());
-        mToolName.addTextChangedListener(new TextWatcher() {
+        mToolNameField = (EditText) v.findViewById(R.id.tool_title);
+        mToolNameField.setText(mTool.getToolName());
+        mToolNameField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -90,16 +91,20 @@ public class ToolFragment extends Fragment {
             }
         });
 
-        mCount = (TextView) v.findViewById(R.id.tool_count);
-        //mCount.setText("Создано: " + mTool.getCount()); // выдаёт ошибку нуль вме
+        mToolCount = (TextView) v.findViewById(R.id.tool_count);
+        //mToolCount.setText("0");
 
-        mSave = (Button) v.findViewById(R.id.save_tool_button);
-        mSave.setOnClickListener(new View.OnClickListener() {
+        /*mCompletedButton = (Button) v.findViewById(R.id.finsh_button);
+        mCompletedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mCrime.setDateChange(new Date());
+                OldTaskLab.get(getActivity()).addCompleteTask(mCrime);
 
+                CrimeLab.get(getActivity()).deleteCrime(mCrime);
+                getActivity().finish();
             }
-        });
+        });*/
 
         /*mReportButton = (Button) v.findViewById(R.id.crime_report);
         mReportButton.setOnClickListener(new View.OnClickListener() {
@@ -233,5 +238,22 @@ public class ToolFragment extends Fragment {
                     mPhotoFile.getPath(), getActivity());
             mPhotoView.setImageBitmap(bitmap);
         }
+    }*/
+
+    /*public void addCompleteTask(Crime c){
+        ContentValues values = getContentValuesForCompletedTable(c);
+
+        mDatabase.insert(CrimeDbSchema.TableCompleted.NAME_TABLE_COMPLETED, null, values);
+    }
+
+    public static ContentValues getContentValuesForCompletedTable(Crime crime){
+        ContentValues values = new ContentValues();
+        values.put(CrimeDbSchema.TableCompleted.Cols.UUID_TABLE_COMPLETED, crime.getId().toString());
+        values.put(CrimeDbSchema.TableCompleted.Cols.TITLE_TABLE_COMPLETED, crime.getTitle());
+        values.put(CrimeDbSchema.TableCompleted.Cols.NOTE_TABLE_COMPLETED, crime.getNote());
+        values.put(CrimeDbSchema.TableCompleted.Cols.DATE_CREATE_TABLE_COMPLETED, crime.getDate().getTime());
+        values.put(CrimeDbSchema.TableCompleted.Cols.DATE_FINISH_TABLE_COMPLETED, crime.getDateChange().getTime());
+
+        return values;
     }*/
 }
